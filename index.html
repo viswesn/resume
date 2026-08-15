@@ -136,6 +136,30 @@
   .btn.primary:hover{box-shadow:0 0 30px rgba(40,224,208,.35);text-decoration:none;transform:translateY(-1px)}
   .btn.ghost{border:1px solid var(--line);color:var(--txt)}
   .btn.ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  /* ═══ Avatar ═══ */
+  .avatar-wrap{
+    position:relative;width:130px;height:130px;flex-shrink:0;
+    margin-bottom:8px;
+  }
+  .avatar-wrap img{
+    width:130px;height:130px;border-radius:50%;
+    object-fit:cover;object-position:top center;
+    border:2.5px solid rgba(40,224,208,.55);
+    display:block;
+  }
+  .avatar-wrap::after{
+    content:"";position:absolute;inset:-5px;border-radius:50%;
+    border:1.5px solid rgba(40,224,208,.22);
+    animation:avatarPing 3s ease-out infinite;
+  }
+  @keyframes avatarPing{
+    0%{transform:scale(1);opacity:.7}
+    70%{transform:scale(1.14);opacity:0}
+    100%{transform:scale(1.14);opacity:0}
+  }
+  .hero-top{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin-bottom:28px}
+  @media(max-width:600px){.hero-top{flex-direction:column;align-items:flex-start;gap:20px}}
+
   .scroll-hint{
     position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
     font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:2.5px;
@@ -349,7 +373,7 @@
 
   /* ═══ Print: clean light resume ═══ */
   @media print{
-    .mesh,.grid-overlay,nav.rail,.scroll-hint,.ctas,.contact-sec p,.focus,.map-panel{display:none!important}
+    .mesh,.grid-overlay,nav.rail,.scroll-hint,.ctas,.contact-sec p,.focus,.map-panel,.avatar-wrap::after{display:none!important}
     body{background:#fff;color:#333;font-size:11px}
     .hero{min-height:0;padding:0 0 14px}
     .hero h1,.sec-head h2,.card h3,.panel h3,.edu-item .deg,.stat .n,.contact-sec h2{color:#111!important}
@@ -379,8 +403,15 @@
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero wrap" id="top">
-  <p class="boot mono" id="typeline">initializing profile<span class="cursor"></span></p>
-  <h1>Viswesuwara Nathan<br><span class="grad">AI Infrastructure &amp; Cloud Solutions Architect</span></h1>
+  <div class="hero-top">
+    <div class="avatar-wrap">
+      <img src="./passport.png" alt="Viswesuwara Nathan" width="130" height="130">
+    </div>
+    <div>
+      <p class="boot mono" id="typeline">initializing profile<span class="cursor"></span></p>
+      <h1>Viswesuwara Nathan<br><span class="grad">AI Infrastructure &amp; Cloud Solutions Architect</span></h1>
+    </div>
+  </div>
   <p class="role">Designing <em>AI PODs, GPU IaaS &amp; cloud platforms</em> for tier-1 telecom operators — from pre-sales vision to cabling-level detail.</p>
   <p class="loc mono">DUBAI, UAE · PRE-SALES &amp; TECHNICAL SOLUTIONING</p>
 
@@ -713,6 +744,11 @@
       <a class="btn primary" href="mailto:mail4visu@gmail.com">mail4visu@gmail.com</a>
       <a class="btn ghost" href="tel:+971522163437">+971 52 216 3437</a>
       <a class="btn ghost" href="https://www.linkedin.com/in/viswesn/" rel="noopener">LinkedIn ↗</a>
+      <a class="btn ghost" href="https://github.com/viswesn" rel="noopener">GitHub ↗</a>
+      <a class="btn ghost" href="http://stackoverflow.com/users/527813/viswesn" rel="noopener">Stack Overflow ↗</a>
+      <a class="btn ghost" href="https://profiles.datawars.io/mail4visu" rel="noopener">Datawars.io ↗</a>
+      <a class="btn ghost" href="https://launchpad.net/~viswesn" rel="noopener">Launchpad ↗</a>
+      <a class="btn ghost" href="https://www.cloudskillsboost.google/public_profiles/040cbdf6-e1e9-482e-9777-65b39292ffc0" rel="noopener">Google Cloud Skills ↗</a>
     </div>
   </section>
 
