@@ -58,31 +58,14 @@
   }
 
   /* ═══ Side nav ═══ */
-  nav.rail{
-    position:fixed;right:26px;top:50%;transform:translateY(-50%);
-    z-index:50;display:flex;flex-direction:column;gap:16px;
-  }
-  nav.rail a{
-    display:flex;align-items:center;gap:10px;justify-content:flex-end;
-    text-decoration:none;
-  }
-  nav.rail .lbl{
-    font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:1.5px;
-    text-transform:uppercase;color:var(--txt-dim);
-    opacity:0;transform:translateX(6px);transition:.25s;
-  }
-  nav.rail a:hover .lbl{opacity:1;transform:none}
-  nav.rail .dot{
-    width:9px;height:9px;border-radius:50%;
-    border:1.5px solid var(--txt-dim);background:transparent;
-    transition:.3s;flex-shrink:0;
-  }
-  nav.rail a.active .dot{
-    background:var(--accent);border-color:var(--accent);
-    box-shadow:0 0 12px var(--accent);
-  }
-  nav.rail a.active .lbl{opacity:1;transform:none;color:var(--accent)}
-  @media (max-width:900px){nav.rail{display:none}}
+  
+  
+  
+  
+  
+  
+  
+  @media (max-width:900px){}
 
   .wrap{max-width:1020px;margin:0 auto;padding:0 28px}
 
@@ -385,21 +368,88 @@
     a{color:#111}
     section{padding:14px 0}
   }
+
+  /* ═══ Top navbar ═══ */
+  .topnav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(6,9,15,.82);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    display:flex;justify-content:center;
+  }
+  .topnav ul{
+    display:flex;list-style:none;gap:0;
+    max-width:1020px;width:100%;padding:0 18px;
+  }
+  .topnav ul li a{
+    display:block;padding:14px 18px;
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+    letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--txt-dim);text-decoration:none;
+    border-bottom:2px solid transparent;
+    transition:color .2s,border-color .2s;
+    white-space:nowrap;
+  }
+  .topnav ul li a:hover{color:var(--white);text-decoration:none}
+  .topnav ul li a.active{color:var(--accent);border-bottom-color:var(--accent)}
+  @media(max-width:680px){
+    .topnav ul{gap:0;padding:0 4px;overflow-x:auto;scrollbar-width:none}
+    .topnav ul::-webkit-scrollbar{display:none}
+    .topnav ul li a{padding:13px 11px;font-size:.62rem;letter-spacing:1px}
+  }
+
+  /* ═══ Collapse / expand ═══ */
+  .sec-toggle{
+    background:none;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;border-radius:8px;
+    color:var(--txt-dim);font-size:1rem;
+    border:1px solid var(--line);
+    transition:color .2s,border-color .2s,background .2s;
+    flex-shrink:0;margin-left:auto;
+  }
+  .sec-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--glow)}
+  .sec-toggle svg{transition:transform .35s ease;display:block}
+  .sec-toggle.collapsed svg{transform:rotate(-90deg)}
+  .sec-body{overflow:hidden;transition:max-height .45s ease,opacity .35s ease;max-height:9000px;opacity:1}
+  .sec-body.collapsed{max-height:0;opacity:0}
+
+  /* job toggle inside timeline */
+  .node-toggle{
+    background:none;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:1px;
+    text-transform:uppercase;color:var(--txt-dim);
+    padding:3px 8px;border:1px solid var(--line);border-radius:100px;
+    margin-top:8px;transition:.2s;
+  }
+  .node-toggle:hover{color:var(--accent);border-color:var(--accent)}
+  .node-toggle svg{transition:transform .3s}
+  .node-toggle.collapsed svg{transform:rotate(-90deg)}
+  .node-body{overflow:hidden;transition:max-height .4s ease,opacity .3s ease;max-height:2000px;opacity:1}
+  .node-body.collapsed{max-height:0;opacity:0}
+
+  /* push hero down to clear fixed nav */
+  .hero{padding-top:130px}
+
 </style>
 </head>
 <body>
 
+<nav class="topnav" aria-label="Page navigation">
+  <ul>
+    <li><a href="#summary" class="tnav-link">Summary</a></li>
+    <li><a href="#experience" class="tnav-link">Experience</a></li>
+    <li><a href="#skills" class="tnav-link">Skills</a></li>
+    <li><a href="#credentials" class="tnav-link">Credentials</a></li>
+    <li><a href="#contact" class="tnav-link">Connect</a></li>
+  </ul>
+</nav>
+
 <div class="mesh" aria-hidden="true"></div>
 <div class="grid-overlay" aria-hidden="true"></div>
 
-<nav class="rail" aria-label="Section navigation">
-  <a href="#top" class="active"><span class="lbl">Top</span><span class="dot"></span></a>
-  <a href="#summary"><span class="lbl">Summary</span><span class="dot"></span></a>
-  <a href="#experience"><span class="lbl">Experience</span><span class="dot"></span></a>
-  <a href="#skills"><span class="lbl">Skills</span><span class="dot"></span></a>
-  <a href="#credentials"><span class="lbl">Credentials</span><span class="dot"></span></a>
-  <a href="#contact"><span class="lbl">Contact</span><span class="dot"></span></a>
-</nav>
+
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero wrap" id="top">
@@ -434,19 +484,31 @@
 
   <!-- ═══════════ SUMMARY ═══════════ -->
   <section id="summary">
-    <div class="sec-head rv"><span class="idx mono">01</span><h2>Summary</h2><span class="rule"></span></div>
+    <div class="sec-head rv"><span class="idx mono">01</span><h2>Summary</h2><span class="rule"></span>
+      <button class="sec-toggle" aria-label="Toggle section">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 7,10 12,4"/></svg>
+      </button>
+    </div>
+    <div class="sec-body">
     <div class="summary-card rv">
-      Seasoned <strong>Solutions Architect</strong> with 22+ years spanning enterprise cloud, telco infrastructure, and — currently — <span class="hl">AI/GPU infrastructure solutioning</span>. Leads pre-sales and technical design for <strong>AI PODs, GPU IaaS, and container platforms (RHOCP/RHOSP)</strong> for tier-1 telecom operators in the Middle East. Owns the full pre-sales lifecycle: RFQ/RFP response, solution architecture, <strong>Statements of Work (SoW), Statements of Compliance (SoC), BoQs, and technical proposals</strong> across multi-vendor ecosystems — Cisco, AMD, NVIDIA, Red Hat, Dell, SUSE. Hands-on with <span class="hl">AI agents, LLM-driven operations (RAG, local model serving)</span>, and AI-assisted engineering workflows. Combines strategic pre-sales vision with deep infrastructure execution earned at Nokia, Rakuten, and NEC.
+      Seasoned <strong>Solutions Architect</strong> with 22+ years spanning enterprise cloud, telco infrastructure, and — currently — <span class="hl">AI/GPU infrastructure solutioning</span>. Leads pre-sales and technical design for <strong>AI PODs, GPU IaaS, and container platforms (RHOCP/RHOSP)</strong> for tier-1 telecom operators in the Middle East. Owns the full pre-sales lifecycle: RFQ/RFP response, solution architecture, <strong>Statements of Work (SoW), Statements of Compliance (SoC), BoQs, and technical proposals</strong> across multi-vendor ecosystems — Cisco, AMD, NVIDIA, Red Hat, Dell, SUSE. Hands-on with <span class="hl">AI agents, LLM-driven operations (RAG, local model serving)</span>, and AI-assisted engineering workflows. Combines strategic pre-sales vision with deep infrastructure execution earned at Nokia, Rakuten, and NEC across UAE, Japan and India.
     </div>
     <div class="focus rv">
       <span>AI POD ARCHITECTURE</span><span>GPU IaaS</span><span>PRE-SALES</span><span>SoW / SoC</span>
       <span>TECHNICAL PROPOSALS</span><span>AI AGENTS</span><span>RHOCP · RHOSP</span><span>TELCO CLOUD</span>
     </div>
+  
+    </div>
   </section>
 
   <!-- ═══════════ EXPERIENCE ═══════════ -->
   <section id="experience">
-    <div class="sec-head rv"><span class="idx mono">02</span><h2>Experience</h2><span class="rule"></span></div>
+    <div class="sec-head rv"><span class="idx mono">02</span><h2>Experience</h2><span class="rule"></span>
+      <button class="sec-toggle" aria-label="Toggle section">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 7,10 12,4"/></svg>
+      </button>
+    </div>
+    <div class="sec-body">
 
     <!-- Career footprint map: India → Japan → UAE -->
     <div class="map-panel rv" role="img" aria-label="Career footprint map: India 2005 to 2021, Japan 2021 to 2025, UAE Dubai 2025 to present">
@@ -533,16 +595,23 @@
         <span class="when">OCT 2025 — PRESENT</span><span class="geo">🇦🇪 UAE · DUBAI</span>
         <div class="card">
           <h3>Solution Cloud Architect <span class="badge">current · AI focus</span></h3>
-          <p class="org">NEC Corporation — Dubai, UAE · Customer: e&amp; (Etisalat)</p>
+          <p class="org">NEC Corporation — Dubai, UAE</p>
+        <button class="node-toggle" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body">
           <ul>
-            <li>Architecting <strong>AI POD infrastructure solutions</strong> — GPU compute nodes (AMD MI350X / NVIDIA H100 class), high-speed backend/frontend fabrics, and RHOCP-based AI platform stacks — from reference architecture to cabling-level design.</li>
+            <li>Architecting <strong>AI POD infrastructure solutions</strong> — GPU compute nodes, high-speed backend/frontend fabrics, and RHOCP-based AI platform stacks — from reference architecture to cabling-level design.</li>
             <li>Leading <strong>pre-sales responses for GPU IaaS and AI infrastructure RFQs</strong> for tier-1 telecom operators: gap analysis, solution scoping, node/fabric sizing, and commercial-technical alignment.</li>
-            <li>Authoring <strong>SoWs, SoCs, BoQs, and technical proposals</strong> across cloud, backup, biometrics, and AI infrastructure programs; producing customer-facing architecture documents and operating models.</li>
-            <li>Building <strong>AI agent and LLM-ops capabilities</strong> — agentic troubleshooting (HolmesGPT + Zabbix), local LLM serving (Ollama), and RAG pipelines for infrastructure log analysis.</li>
+            <li>Authoring <strong>SoWs, SoCs, BoQs, and technical proposals</strong> across cloud, backup and AI infrastructure programs; producing customer-facing architecture documents and operating models.</li>
+            <li>Building <strong>AI agent and LLM-ops capabilities</strong> — agentic troubleshooting (HolmesGPT), local LLM serving (Ollama), and RAG pipelines for infrastructure log analysis.</li>
             <li>Practicing <strong>AI-assisted engineering ("vibe coding")</strong> — using LLM tooling to accelerate solution documents, automation scripts, and design workbooks.</li>
-            <li>Driving delivery coordination for RHOSP/RHOCP (CaaS) platforms and container service catalogs for e&amp; (Etisalat).</li>
+            <li>Driving delivery coordination for Cloud platforms and Container Service Catalogs for UAE customers.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -550,15 +619,23 @@
         <div class="card">
           <h3>Solution Cloud Architect — Rakuten Robin Platform</h3>
           <p class="org">Nokia Networks — Tokyo, Japan</p>
+        <button class="node-toggle" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body">
           <p class="lede">Spearheaded Nokia application integration on Rakuten's cloud-native Robin Platform within an NFV container-based infrastructure.</p>
           <ul>
             <li>Led end-to-end deployment of Nokia cloud-native Core applications as containers on the Rakuten Robin NFV platform — contributing to Nokia's selection as the <strong>first Symworld partner for Rakuten Symphony</strong>.</li>
             <li>Partnered with Rakuten OBF (FCAPS) teams to align all Nokia applications with OBF observability and fault/performance standards, ensuring compliant, production-ready integrations.</li>
             <li>Orchestrated onboarding and integration for <strong>~16 Nokia application teams</strong>, standardizing processes and reducing integration friction across multi-vendor, multi-domain environments.</li>
             <li>Drove platform and integration issue resolution by guiding cross-functional teams, improving system stability and accelerating time-to-resolution for complex defects.</li>
-            <li>Acted as the primary liaison between Nokia platform and customer application teams — anticipating concerns, de-escalating issues, and significantly improving customer satisfaction.</li>
+            <li>Ran daily syncs with customer engineering and QA, creating clear visibility on risks and blockers, and strengthening trust through proactive communication and stakeholder management.</li>
+            <li>Acted as the primary liaison between Nokia platform and customer application teams — anticipating concerns, de-escalating issues, and significantly improving overall customer satisfaction.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -566,6 +643,11 @@
         <div class="card">
           <h3>Solution Cloud Architect — Automation &amp; Cloud Infrastructure</h3>
           <p class="org">Nokia Networks — Chennai, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <p class="lede">Delivered multiple high-impact automation and cloud infrastructure products for Nokia's global telecom clients.</p>
           <ul>
             <li>Designed <strong>Network Service Descriptors (NSD)</strong> and Mistral-based workflow plugins integrating Infoblox IPAM, NFM-P, and Nokia Nuage SDN — enabling zero-touch VNF deployment via Nokia CBND.</li>
@@ -573,7 +655,9 @@
             <li>Built the <strong>Nokia Build Automation Framework (NBAF)</strong> from the ground up — one-touch automated deployment of Nokia CBIS on bare metal, drastically reducing provisioning time.</li>
             <li>Developed <strong>Clover</strong>, a cloud benchmarking platform validating VNF readiness via comprehensive compute, storage, and networking test suites.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -581,6 +665,11 @@
         <div class="card">
           <h3>Senior Technical Architect</h3>
           <p class="org">Aricent — Bangalore, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <ul>
             <li>Designed <strong>Cisco's Telemetry Framework</strong> for Service Provider MPLS remediation — Kafka, InfluxDB, Grafana, and Ansible for real-time automated fault recovery.</li>
             <li>Individual contributor to the <strong>Ubuntu/Canonical Juju open-source community</strong> — OpenStack Murano Charm developer, code on GitHub and Launchpad.</li>
@@ -588,7 +677,9 @@
             <li>Built <strong>vAPx</strong> for Ruckus Wireless — an embedded AP packaged as Container-as-a-Service using LXC on OpenStack IaaS and VMware ESX.</li>
             <li>Architected an OpenStack rolling upgrade framework using the Neutron LBaaS API — <strong>99.999% availability</strong> during version transitions.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -596,11 +687,18 @@
         <div class="card">
           <h3>Senior Software Engineer</h3>
           <p class="org">Juniper Networks — Bangalore, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <ul>
             <li>Owned end-to-end development of the JunosV iWLC OVA/QCOW2 image build pipeline and infrastructure for iWLC VM execution on VSE2100 via JVAE.</li>
             <li>Delivered packaging and debug infrastructure for JunosV iWLC; resolved time-critical field issues across virtual WLC, WLA, and SIP protocols.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -608,10 +706,17 @@
         <div class="card">
           <h3>Technical Specialist</h3>
           <p class="org">Altair — Bangalore, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <ul>
             <li>PBS (Portable Batch System) scalability team — enhanced protocol performance, messaging throughput, and connection handling to solve <strong>C10K concurrency</strong> for NASA-grade workload management.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -619,12 +724,19 @@
         <div class="card">
           <h3>Senior Software Engineer</h3>
           <p class="org">EMC² (now Dell) — Bangalore, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <ul>
             <li>Designed <strong>Single Step Recovery</strong> — zero-touch VMware VM restore to ESX using NetWorker, without VMware Converter.</li>
             <li>Co-developed Single File Recovery for NTFS using VMware Consolidated Backup and VADP — strong customer recognition.</li>
             <li>Built a NetWorker configuration tool for automated, zero-touch VM backup/recovery setup.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
       <article class="node rv">
@@ -632,18 +744,32 @@
         <div class="card">
           <h3>Project Engineer</h3>
           <p class="org">Wipro Technologies — Chennai, India</p>
+        <button class="node-toggle collapsed" aria-label="Toggle details">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1,3 5,7 9,3"/></svg>
+          details
+        </button>
+        <div class="node-body collapsed">
           <ul>
             <li>Enhanced the Voice Commander (VOCO) product and resolved critical defects in the StorageTek Archive System's remote replication module.</li>
           </ul>
+        
         </div>
+      </div>
       </article>
 
+    </div>
+  
     </div>
   </section>
 
   <!-- ═══════════ SKILLS ═══════════ -->
   <section id="skills">
-    <div class="sec-head rv"><span class="idx mono">03</span><h2>Skills</h2><span class="rule"></span></div>
+    <div class="sec-head rv"><span class="idx mono">03</span><h2>Skills</h2><span class="rule"></span>
+      <button class="sec-toggle" aria-label="Toggle section">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 7,10 12,4"/></svg>
+      </button>
+    </div>
+    <div class="sec-body">
     <div class="skill-grid">
       <div class="sk hot rv">
         <h4>AI Infrastructure</h4>
@@ -667,7 +793,7 @@
       </div>
       <div class="sk rv">
         <h4>Automation &amp; IaC</h4>
-        <div class="tags"><span>Ansible</span><span>Jinja</span><span>Terraform</span><span>Shell</span><span>REST API</span><span>Mistral Workflow</span></div>
+        <div class="tags"><span>Ansible</span><span>Jinja</span><span>Shell</span><span>REST API</span><span>Swagger</span><span>Mistral Workflow</span></div>
       </div>
       <div class="sk rv">
         <h4>Monitoring</h4>
@@ -682,11 +808,18 @@
         <div class="tags"><span>Python</span><span>C</span><span>MySQL</span><span>InfluxDB</span><span>Linux</span><span>ROBOT Framework</span><span>VMware ESX</span></div>
       </div>
     </div>
+  
+    </div>
   </section>
 
   <!-- ═══════════ CREDENTIALS ═══════════ -->
   <section id="credentials">
-    <div class="sec-head rv"><span class="idx mono">04</span><h2>Credentials</h2><span class="rule"></span></div>
+    <div class="sec-head rv"><span class="idx mono">04</span><h2>Credentials</h2><span class="rule"></span>
+      <button class="sec-toggle" aria-label="Toggle section">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 7,10 12,4"/></svg>
+      </button>
+    </div>
+    <div class="sec-body">
     <div class="two-col">
       <div class="panel rv">
         <h3>Certifications</h3>
@@ -716,7 +849,7 @@
         <div class="edu-item">
           <div class="yr mono">2006 — 2008</div>
           <div class="deg">M.S. — System Software</div>
-          <div class="meta">BITS, Pilani · 6.7 CGPA</div>
+          <div class="meta">Birla Institute of Technology (BITS), Pilani · 6.7 CGPA</div>
         </div>
         <div class="edu-item">
           <div class="yr mono">2001 — 2004</div>
@@ -734,6 +867,8 @@
         </div>
       </div>
     </div>
+  
+    </div>
   </section>
 
   <!-- ═══════════ CONTACT ═══════════ -->
@@ -747,7 +882,6 @@
       <a class="btn ghost" href="https://github.com/viswesn" rel="noopener">GitHub ↗</a>
       <a class="btn ghost" href="http://stackoverflow.com/users/527813/viswesn" rel="noopener">Stack Overflow ↗</a>
       <a class="btn ghost" href="https://profiles.datawars.io/mail4visu" rel="noopener">Datawars.io ↗</a>
-      <a class="btn ghost" href="https://launchpad.net/~viswesn" rel="noopener">Launchpad ↗</a>
       <a class="btn ghost" href="https://www.cloudskillsboost.google/public_profiles/040cbdf6-e1e9-482e-9777-65b39292ffc0" rel="noopener">Google Cloud Skills ↗</a>
     </div>
   </section>
@@ -759,6 +893,9 @@
   <span>STATIC · GITHUB PAGES · NO TRACKERS</span>
 </footer>
 
+
+
+
 <script>
   // ── Typing line in hero ──
   (function(){
@@ -767,36 +904,50 @@
     const text = 'profile loaded · ai_infrastructure · pre_sales · dubai';
     const cursor = '<span class="cursor"></span>';
     if (reduced) { el.innerHTML = text + cursor; return; }
-    let i = 0;
-    el.innerHTML = cursor;
+    let i = 0; el.innerHTML = cursor;
     (function type(){
-      if (i <= text.length){
-        el.innerHTML = text.slice(0, i) + cursor;
-        i++;
-        setTimeout(type, 34);
-      }
+      if (i <= text.length){ el.innerHTML = text.slice(0,i) + cursor; i++; setTimeout(type, 34); }
     })();
   })();
 
   // ── Reveal on scroll ──
   const rv = document.querySelectorAll('.rv');
   const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.09 });
   rv.forEach(el => io.observe(el));
 
-  // ── Scroll-spy for side rail ──
-  const sections = ['top','summary','experience','skills','credentials','contact'];
-  const links = document.querySelectorAll('nav.rail a');
-  const spy = new IntersectionObserver(entries => {
+  // ── Top nav scroll-spy ──
+  const tnavLinks = document.querySelectorAll('.tnav-link');
+  const secIds = ['summary','experience','skills','credentials','contact'];
+  const tnSpy = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting){
+      if(e.isIntersecting){
         const id = e.target.id;
-        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        tnavLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
       }
     });
-  }, { rootMargin: '-42% 0px -52% 0px' });
-  sections.forEach(id => { const s = document.getElementById(id); if (s) spy.observe(s); });
+  }, { rootMargin:'-38% 0px -56% 0px' });
+  secIds.forEach(id => { const s = document.getElementById(id); if(s) tnSpy.observe(s); });
+
+  // ── Section collapse/expand (headings) ──
+  document.querySelectorAll('.sec-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.closest('section').querySelector('.sec-body');
+      const collapsed = body.classList.toggle('collapsed');
+      btn.classList.toggle('collapsed', collapsed);
+      btn.setAttribute('aria-label', collapsed ? 'Expand section' : 'Collapse section');
+    });
+  });
+
+  // ── Role collapse/expand (timeline cards) ──
+  document.querySelectorAll('.node-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const collapsed = body.classList.toggle('collapsed');
+      btn.classList.toggle('collapsed', collapsed);
+    });
+  });
 </script>
 
 </body>
